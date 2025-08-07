@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  superforu-ai-ocr:
+    image: superforu-ai-ocr:1.0.0
+    container_name: yingda-ai-ocr
+    restart: unless-stopped
+    ports:
+      - "19108:19108"
+    env_file:
+      - .env

@@ -1,0 +1,17 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+src/agents/TicketExtractAgent/uploaded/*
+nohup.out
+
+ui/node_modules
+dist
+
+output
+
+.DS_Store
+
+storage/upload
