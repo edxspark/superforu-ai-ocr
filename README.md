@@ -5,6 +5,7 @@ AI大模型高质量文档解析OCR
 
 # 开发指南    
 ```bash
+
 git checkout superforu-ai-ocr
 conda create --name superforu-ai-ocr python=3.11
 conda activate superforu-ai-ocr
@@ -13,6 +14,13 @@ python src/App.py
 uvicorn src.App:app --host 0.0.0.0 --port 19108
 ```
 API Docs: http://127.0.0.1:19108/docs
+
+
+# 大模型识别引擎安装
+## Qwen VL
+1. 安装Ollama
+2. ollama run qwen2.5vl
+
 
 # Docker 部署
 ```bash

@@ -1,31 +1,45 @@
 import os
 from fastapi import UploadFile
-from src.agent import PPaddleOCR, MarkItDownOCR, PPaddleOnnxOCR
-from src.venum.DocTypeEnum import DocTypeEnum
+from paddleocr import PaddleOCR
+
+from src.agent import PPaddleOCR, MarkItDownOCR, OnnxOCR, QwenVLOCR
+from src.enum.DocTypeEnum import DocTypeEnum
+from src.enum.OCREngineEnum import OCREngineEnum
 from src.util import FileUtil, ImageUtil
+from dotenv import load_dotenv
+load_dotenv()
+OCR_ENGINE = os.getenv("OCR_ENGINE")
 
-
-def ocr_file(file: UploadFile):
+def ocr_file(file: UploadFile, prompt):
     file_path = FileUtil.save_file(file)
     print("# OCR file_path=",file_path)
-    docType = get_file_type(file_path)
-    print(f"# OCR {docType} ....")
+    doc_type = get_file_type(file_path)
+    print(f"# OCR {doc_type} ....")
 
     context = ""
-    if docType == DocTypeEnum.IMG.value:
+    if doc_type == DocTypeEnum.IMG.value:
         ImageUtil.resize_image(file_path, file_path, 960)
-        #context = PPaddleOCR.ocr(file_path)
-        context = PPaddleOnnxOCR.ocr(file_path)
-    elif docType == DocTypeEnum.PDF.value:
+        if OCR_ENGINE == OCREngineEnum.default.value or OCR_ENGINE == OCREngineEnum.onnxocr.value:
+            context = OnnxOCR.ocr(file_path)
+        elif OCR_ENGINE == OCREngineEnum.paddleocr.value:
+            context = PPaddleOCR.ocr(file_path)
+        elif OCR_ENGINE == OCREngineEnum.qwenvl.value:
+            context = QwenVLOCR.ocr(file_path, doc_type, prompt)
+        else:
+            context = OCREngineEnum.notengine
+
+
+    elif doc_type == DocTypeEnum.PDF.value:
         context = MarkItDownOCR.ocr(file_path)
-    elif docType == DocTypeEnum.DOCX.value:
+    elif doc_type == DocTypeEnum.DOCX.value:
         context = MarkItDownOCR.ocr(file_path)
-    elif docType == DocTypeEnum.XLSX.value:
+    elif doc_type == DocTypeEnum.XLSX.value:
         context = MarkItDownOCR.ocr(file_path)
-    elif docType == DocTypeEnum.PPTX.value:
+    elif doc_type == DocTypeEnum.PPTX.value:
         context = MarkItDownOCR.ocr(file_path)
     else:
-        context = "NOT_SUPPORTED_DOC_TYPE"
+        context = DocTypeEnum.PPTX.NOT_SUPPORTED_DOC_TYPE.value
+    print("# OCR context=",context)
     return context,file_path
 
 

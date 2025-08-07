@@ -7,3 +7,4 @@ class DocTypeEnum(Enum):
     DOCX = "DOCX"
     XLSX = "XLSX"
     PPTX = "PPTX"
+    NOT_SUPPORTED_DOC_TYPE = "NOT_SUPPORTED_DOC_TYPE"

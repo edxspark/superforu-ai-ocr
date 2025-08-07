@@ -1,6 +1,10 @@
 #!/usr/bin/venv python
 import os
 import sys
+from typing import Optional
+
+from src.enum.DocTypeEnum import DocTypeEnum
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.agent import AIOCRAgent
@@ -28,13 +32,13 @@ app.add_middleware(
 
 # Upload file
 @app.post("/ai/ocr")
-def ocr_file(file: UploadFile = File(...)):
+def ocr_file(file: UploadFile = File(...), prompt: Optional[str] = ""):
     print("#####ocr_file BEG")
     rt = None
     file_path = None
     try:
-        result,file_path = AIOCRAgent.ocr_file(file)
-        if result == "NOT_SUPPORTED_DOC_TYPE":
+        result,file_path = AIOCRAgent.ocr_file(file, prompt)
+        if result == DocTypeEnum.PPTX.NOT_SUPPORTED_DOC_TYPE.value:
             rt = {"status":"01","result":result}
         else:
             rt = {"status": "00", "result": result}
