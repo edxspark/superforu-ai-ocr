@@ -1,6 +1,5 @@
 import os
 from fastapi import UploadFile
-from paddleocr import PaddleOCR
 
 from src.agent import PPaddleOCR, MarkItDownOCR, OnnxOCR, QwenVLOCR
 from src.enum.DocTypeEnum import DocTypeEnum
@@ -39,7 +38,8 @@ def ocr_file(file: UploadFile, prompt):
         context = MarkItDownOCR.ocr(file_path)
     else:
         context = DocTypeEnum.PPTX.NOT_SUPPORTED_DOC_TYPE.value
-    print("# OCR context=",context)
+    print("# OCR context:")
+    print(context)
     return context,file_path
 
 

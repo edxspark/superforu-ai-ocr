@@ -46,6 +46,7 @@ def ocr_file(file: UploadFile = File(...), prompt: Optional[str] = ""):
         print(e)
         rt = {"status":"02","result":"ERROR"}
     finally:
+        print(f"#####remove file:{file_path}")
         os.remove(file_path)
     print("#####ocr_file END")
     return rt

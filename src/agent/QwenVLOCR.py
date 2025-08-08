@@ -1,10 +1,17 @@
 
 import base64
+import os
+
 import ollama
+from ollama import Client
 
 from src.enum.DocTypeEnum import DocTypeEnum
 from src.util import StringUtil
+from dotenv import load_dotenv
 
+load_dotenv()
+QWEN_VL_MODEL = os.getenv("QWEN_VL_MODEL")
+QWEN_VL_OLLAMA_URL = os.getenv("QWEN_VL_OLLAMA_URL")
 
 def ocr(file_path, doc_type, prompt):
     context = ""
@@ -33,16 +40,14 @@ def ocr_img(file_path, prompt):
         img_base64 = base64.b64encode(img_file.read()).decode("utf-8")
 
     # 2. 设置prompt
-    ocr_prompt = prompt
-    if prompt == "":
-        ocr_prompt = prompt_default
-    else:
-        ocr_prompt = prompt
-
+    ocr_prompt = prompt_default if prompt == "" else prompt
     print("#img_ocr_prompt:", ocr_prompt)
+
     # 3. 识别图片
-    response = ollama.chat(
-        model="qwen2.5vl:latest",
+    response = Client(
+        host=QWEN_VL_OLLAMA_URL
+    ).chat(
+        model=f"{QWEN_VL_MODEL}",
         messages=[
             {
                 "role": "user",
