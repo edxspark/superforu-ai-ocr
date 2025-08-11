@@ -3,7 +3,9 @@ AI大模型高质量文档解析OCR
     支持格式: .jpg、.jpeg、.png、.pdf、.docx、.xlsx、.xls、.pptx   
     返回格式：Markdown
 
-# 开发指南    
+# 开发指南
+- 安装Conda: https://docs.conda.io/projects/miniconda/en/latest  
+
 ```bash
 
 git checkout superforu-ai-ocr
