@@ -38,6 +38,12 @@ docker compose up -d
 ```
 
 
+# 相关技术栈
+- [Ollama](https://ollama.com)
+- [QWen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL)
+- [OnnxOCR](https://github.com/jingsongliujing/OnnxOCR)
+- [Markitdown](https://github.com/microsoft/markitdown)
+- [Coda](https://docs.conda.io/projects/miniconda/en/latest  )
 
 
 
