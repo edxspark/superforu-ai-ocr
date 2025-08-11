@@ -7,6 +7,7 @@ def ocr(file_path):
     img = cv2.imread(file_path)
     result = model.ocr(img)
     ocr_results = []
+    context = ""
     for line in result[0]:
         # 确保 line[0] 是 NumPy 数组或列表
         if isinstance(line[0], (list, np.ndarray)):
@@ -15,10 +16,15 @@ def ocr(file_path):
         else:
             bounding_box = []
 
+        line_text = line[1][0]
         ocr_results.append({
-            "text": line[1][0],  # 识别文本
+            "text": line_text,  # 识别文本
             "confidence": float(line[1][1]),  # 置信度
             "bounding_box": bounding_box  # 文本框坐标
         })
+        if len(line_text)<=2:
+            context = context + line[1][0]
+        else:
+            context = context + line[1][0]+"\n"
 
-    return ocr_results
+    return context

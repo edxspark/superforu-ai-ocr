@@ -3,6 +3,5 @@ from enum import Enum
 class OCREngineEnum(Enum):
     default = "default"
     qwenvl = "qwenvl"
-    onnxocr = "onnxocr"
-    paddleocr = "paddleocr"
+    paddleonnxocr = "paddleonnxocr"
     notengine = "not_engine"

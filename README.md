@@ -15,15 +15,17 @@ uvicorn src.App:app --host 0.0.0.0 --port 19108
 ```
 API Docs: http://127.0.0.1:19108/docs
 
+# 启用QwenVL大模型识别图片和PDF
+OCR_ENGINE=qwenvl
+```shell
 
-# 大模型识别引擎安装
-## Qwen VL
 1. 安装Ollama
 2. ollama run qwen2.5vl
-
+```
 
 # Docker 部署
 ```bash
+
 docker build -t superforu-ai-ocr:1.0.0 .
 docker save superforu-ai-ocr:1.0.0 > superforu-ai-ocr.tar
 docker load -i superforu-ai-ocr.tar
@@ -32,4 +34,8 @@ cd docker
 docker compose up -d
 
 ```
+
+
+
+
 

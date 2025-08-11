@@ -1,7 +1,7 @@
 import os
 from fastapi import UploadFile
 
-from src.agent import PPaddleOCR, MarkItDownOCR, OnnxOCR, QwenVLOCR
+from src.agent import MarkItDownOCR, QwenVLOCR, PaddleOnnxOCR
 from src.enum.DocTypeEnum import DocTypeEnum
 from src.enum.OCREngineEnum import OCREngineEnum
 from src.util import FileUtil, ImageUtil
@@ -18,16 +18,12 @@ def ocr_file(file: UploadFile, prompt):
     context = ""
     if doc_type == DocTypeEnum.IMG.value:
         ImageUtil.resize_image(file_path, file_path, 960)
-        if OCR_ENGINE == OCREngineEnum.default.value or OCR_ENGINE == OCREngineEnum.onnxocr.value:
-            context = OnnxOCR.ocr(file_path)
-        elif OCR_ENGINE == OCREngineEnum.paddleocr.value:
-            context = PPaddleOCR.ocr(file_path)
+        if OCR_ENGINE == OCREngineEnum.default.value or OCR_ENGINE == OCREngineEnum.paddleonnxocr.value:
+            context = PaddleOnnxOCR.ocr(file_path)
         elif OCR_ENGINE == OCREngineEnum.qwenvl.value:
             context = QwenVLOCR.ocr(file_path, doc_type, prompt)
         else:
             context = OCREngineEnum.notengine
-
-
     elif doc_type == DocTypeEnum.PDF.value:
         context = MarkItDownOCR.ocr(file_path)
     elif doc_type == DocTypeEnum.DOCX.value:
