@@ -1,7 +1,12 @@
 # Superforu AI OCR
 AI大模型高质量文档解析OCR   
     支持格式: .jpg、.jpeg、.png、.pdf、.docx、.xlsx、.xls、.pptx   
-    返回格式：Markdown
+    返回格式:  
+         - Markdown: 默认  
+         - JSON: 多模态可通过prompt指定返回JSON
+
+![](asserts/imgs/ocr_01.png "")
+![](asserts/imgs/ocr_02.png "")
 
 # 开发指南
 - 安装Conda: https://docs.conda.io/projects/miniconda/en/latest  
