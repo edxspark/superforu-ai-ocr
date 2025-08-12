@@ -4,7 +4,7 @@ from ollama import Client
 from src.util import StringUtil
 
 load_dotenv()
-QWEN_VL_MODEL = os.getenv("QWEN_VL_MODEL")
+QWEN_VL_OLLAMA_MODEL = os.getenv("QWEN_VL_OLLAMA_MODEL")
 QWEN_VL_OLLAMA_URL = os.getenv("QWEN_VL_OLLAMA_URL")
 
 def chat_to_img(ocr_prompt,img_base64):
@@ -12,7 +12,7 @@ def chat_to_img(ocr_prompt,img_base64):
     response = Client(
         host=QWEN_VL_OLLAMA_URL
     ).chat(
-        model=f"{QWEN_VL_MODEL}",
+        model=f"{QWEN_VL_OLLAMA_MODEL}",
         messages=[
             {
                 "role": "user",
