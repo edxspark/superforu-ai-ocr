@@ -18,14 +18,17 @@ def ocr_file(file: UploadFile, prompt):
     context = ""
     if doc_type == DocTypeEnum.IMG.value:
         ImageUtil.resize_image(file_path, file_path, 960)
-        if OCR_ENGINE == OCREngineEnum.default.value or OCR_ENGINE == OCREngineEnum.paddleonnxocr.value:
+        if OCR_ENGINE == OCREngineEnum.paddleonnxocr.value:
             context = PaddleOnnxOCR.ocr(file_path)
-        elif OCR_ENGINE == OCREngineEnum.qwenvl.value:
-            context = QwenVLOCR.ocr(file_path, doc_type, prompt)
+        elif OCR_ENGINE == OCREngineEnum.qwenvlollama.value or OCR_ENGINE==OCREngineEnum.qwenvlbailian.value:
+            context = QwenVLOCR.ocr(file_path, doc_type, prompt, OCR_ENGINE)
         else:
             context = OCREngineEnum.notengine
     elif doc_type == DocTypeEnum.PDF.value:
-        context = MarkItDownOCR.ocr(file_path)
+        if OCR_ENGINE == OCREngineEnum.qwenvlollama.value  or OCR_ENGINE==OCREngineEnum.qwenvlbailian.value:
+            context = QwenVLOCR.ocr(file_path, doc_type, prompt,OCR_ENGINE)
+        else:
+            context = MarkItDownOCR.ocr(file_path)
     elif doc_type == DocTypeEnum.DOCX.value:
         context = MarkItDownOCR.ocr(file_path)
     elif doc_type == DocTypeEnum.XLSX.value:

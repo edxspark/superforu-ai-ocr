@@ -1,7 +1,7 @@
 from enum import Enum
 
 class OCREngineEnum(Enum):
-    default = "default"
-    qwenvl = "qwenvl"
+    qwenvlollama = "qwenvl_ollama"
+    qwenvlbailian = "qwenvl_bailian"
     paddleonnxocr = "paddleonnxocr"
     notengine = "not_engine"

@@ -41,3 +41,4 @@ accelerate>=0.26.0
 markitdown[pdf,docx,xlsx,xls,pptx]
 onnxocr==2025.5
 ollama==0.5.2
+dashscope==1.24.1
